@@ -1,0 +1,48 @@
+# Project-wide gitignore for Doggzi Assignment
+# This covers both backend (Python/FastAPI) and mobile (Flutter) directories
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Environment and secrets
+.env
+.env.local
+.env.production
+.env.test
+*.pem
+*.key
+
+# Dependencies (will be handled by specific directories)
+node_modules/
+
+# Build outputs and cache
+dist/
+build/
+.cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# System files
+*.pid
+*.seed
+*.cover
