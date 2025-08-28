@@ -1,6 +1,6 @@
 # 🐾 Doggzi Pet Management App
 
-A full-stack application for managing pets with **Flutter (GetX)** for mobile frontend and **FastAPI** for backend, featuring user authentication and pet management capabilities.
+A complete full-stack pet management application built with **Flutter** (mobile) and **FastAPI** (backend). Pawzy helps pet owners easily manage and track their furry friends with an intuitive, cross-platform mobile experience.
 
 ## 🎯 Features
 
@@ -10,20 +10,20 @@ A full-stack application for managing pets with **Flutter (GetX)** for mobile fr
 - **Persistent login** - stays logged in across app restarts
 - **Secure logout** with token cleanup
 
-### 🐕 Pet Management
+### � Pawzy - Full-Stack Pet Management Solution
 - **Add new pets** with name, type, age, and optional notes
 - **View pet list** with detailed information and responsive cards
 - **Pet type selection** from predefined list or custom type
 - **Input validation** and error handling throughout
 - **Real-time updates** with pull-to-refresh functionality
 
-### 📱 Mobile Experience
-- **Fully responsive design** - adapts to different screen sizes
-- **Keyboard navigation** - Tab through form fields seamlessly
-- **Gesture support** - Tap outside to dismiss keyboard
-- **Loading states** and progress indicators
-- **Success/error feedback** with styled snackbars
-- **No overflow errors** - all screens properly constrained
+### 📱 Mobile App (Pawzy)
+- **Flutter** with **GetX** state management
+- **Cross-platform**: Android & iOS support
+- **Professional branding**: Custom app icon and "Pawzy" branding
+- **Responsive design**: Adapts to all screen sizes
+- **Platform-aware networking**: Automatic API endpoint detection
+- **JWT Authentication** with secure token storage
 
 ## � Tech Stack
 

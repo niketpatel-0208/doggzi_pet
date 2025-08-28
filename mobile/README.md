@@ -1,8 +1,15 @@
 # doggzi_assignment
 
-# 📱 Doggzi Mobile App
+# � Pawzy - Pet Management App
 
-A Flutter mobile application for pet management with GetX state management and JWT authentication.
+A beautiful Flutter mobile application for comprehensive pet management with cross-platform support for Android and iOS.
+
+## 📱 App Information
+
+- **App Name**: Pawzy
+- **Bundle ID**: com.pawzy.petmanagement
+- **Version**: 1.0.0+1
+- **Platforms**: Android & iOS
 
 ## 🎯 Features
 
@@ -104,11 +111,13 @@ The app communicates with the FastAPI backend running on:
 ## 🔧 Configuration
 
 ### Network Configuration
-Update the base URL in `lib/services/api_service.dart`:
-```dart
-static const String baseUrl = 'http://10.0.2.2:8000'; // For Android emulator
-// static const String baseUrl = 'http://localhost:8000'; // For iOS simulator
-```
+The app automatically detects the platform and uses the appropriate API endpoint:
+
+- **Android Emulator**: `http://10.0.2.2:8000`
+- **iOS Simulator**: `http://localhost:8000`
+- **Web/Desktop**: `http://localhost:8000`
+
+This ensures seamless connectivity across all platforms without manual configuration.
 
 ### Android Permissions
 The app requires internet permission (already configured in `android/app/src/main/AndroidManifest.xml`):
@@ -187,6 +196,58 @@ Obx(() => _controller.isLoading.value
 **Solution**: Ensure controllers are properly initialized with `Get.put()`
 
 
+## � Features
+
+- **User Authentication** (Login/Register)
+- **Pet Management** (Add, List, View pets)
+- **Responsive Design** - Works on all screen sizes
+- **Keyboard Navigation** - Tab through form fields
+- **Gesture Support** - Tap to dismiss keyboard
+- **Real-time Validation** - Form validation with user feedback
+- **Success/Error Handling** - Clear feedback for all actions
+- **Token Persistence** - Stay logged in across app restarts
+- **Cross-platform** - Android & iOS support
+
+## 📱 Platform Support
+
+### Android
+- **Minimum SDK**: API level 21 (Android 5.0+)
+- **Target SDK**: Latest
+- **Architectures**: arm64-v8a, armeabi-v7a, x86_64, x86
+- **Build Output**: APK and AAB formats supported
+
+### iOS  
+- **Minimum Version**: iOS 11.0+
+- **Architectures**: arm64, x86_64 (simulator)
+- **Build Output**: .app bundle
+- **App Store Ready**: Icons and configurations compliant
+
+## 🚀 Building the App
+
+### Android
+```bash
+# Debug build
+flutter run
+
+# Release APK
+flutter build apk --release
+
+# Release App Bundle (for Google Play)
+flutter build appbundle --release
+```
+
+### iOS
+```bash
+# Debug build (requires iOS Simulator or device)
+flutter run
+
+# Release build (requires Xcode and valid certificates)
+flutter build ios --release
+
+# Build without code signing (for testing)
+flutter build ios --no-codesign
+```
+
 ---
 
-Built with Flutter 💙 and GetX for optimal performance
+Built with Flutter 💙 and GetX for optimal cross-platform performance
