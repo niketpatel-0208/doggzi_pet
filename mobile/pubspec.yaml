@@ -21,6 +21,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  # Assets
+  assets:
+    - assets/icon/
 
 # App icon configuration with theme support
 flutter_launcher_icons:

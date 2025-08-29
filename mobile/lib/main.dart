@@ -20,6 +20,33 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF2196F3), // Nice blue color
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2196F3),
+          brightness: Brightness.light,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF2196F3),
+          foregroundColor: Colors.white,
+          elevation: 2,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF2196F3),
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xFF2196F3), width: 2),
+          ),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialBinding: InitialBinding(),
@@ -50,25 +77,62 @@ class SplashScreen extends StatelessWidget {
     final authController = Get.find<AuthController>();
 
     return Scaffold(
+      backgroundColor: const Color(0xFF2196F3),
       body: Obx(() {
         if (authController.isLoading.value) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.pets, size: 80, color: Colors.blue),
-                SizedBox(height: 24),
-                Text(
-                  'Doggzi Pet App',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFF2196F3), Color(0xFF1976D2)],
+              ),
+            ),
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // App Icon
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Image(
+                        image: AssetImage('assets/icon/app_icon.png'),
+                        width: 80,
+                        height: 80,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(height: 24),
-                CircularProgressIndicator(),
-              ],
+                  SizedBox(height: 32),
+                  // App Name
+                  Text(
+                    'Pawzy',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Pet Management Made Simple',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white70,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  SizedBox(height: 48),
+                  // Loading Indicator
+                  CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 3,
+                  ),
+                ],
+              ),
             ),
           );
         } else {
@@ -81,7 +145,18 @@ class SplashScreen extends StatelessWidget {
             }
           });
 
-          return const Center(child: CircularProgressIndicator());
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFF2196F3), Color(0xFF1976D2)],
+              ),
+            ),
+            child: const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            ),
+          );
         }
       }),
     );

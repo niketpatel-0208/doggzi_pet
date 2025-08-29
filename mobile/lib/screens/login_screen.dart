@@ -34,11 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_isLoginMode ? 'Login' : 'Register'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: Text(_isLoginMode ? 'Login' : 'Register')),
       body: GestureDetector(
         onTap: () {
           // Dismiss keyboard when tapping outside
@@ -67,16 +63,37 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Icon(
-                      Icons.pets,
-                      size: screenSize.width * 0.2,
-                      color: Colors.blue,
+                    // App Icon and Header
+                    CircleAvatar(
+                      radius: screenSize.width * 0.12,
+                      backgroundColor: const Color(0xFF2196F3),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image(
+                          image: const AssetImage('assets/icon/app_icon.png'),
+                          width: screenSize.width * 0.16,
+                          height: screenSize.width * 0.16,
+                        ),
+                      ),
                     ),
-                    SizedBox(height: screenSize.height * 0.03),
+                    SizedBox(height: screenSize.height * 0.02),
+                    Text(
+                      'Pawzy',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF2196F3),
+                        letterSpacing: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: screenSize.height * 0.01),
                     Text(
                       _isLoginMode ? 'Welcome Back!' : 'Create Account',
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.w500,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: screenSize.height * 0.04),

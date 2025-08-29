@@ -11,7 +11,7 @@ class PetController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPets();
+    // Don't automatically fetch pets - wait for user to be logged in
   }
 
   Future<void> fetchPets() async {
@@ -22,21 +22,17 @@ class PetController extends GetxController {
       pets.value = fetchedPets;
     } on ApiException catch (e) {
       errorMessage.value = e.message;
-      Get.snackbar(
-        'Error',
-        'Failed to fetch pets: ${e.message}',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      // Don't show snackbar for network errors, let the UI handle it
     } catch (e) {
-      errorMessage.value = e.toString();
-      Get.snackbar(
-        'Error',
-        'Failed to fetch pets: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      errorMessage.value =
+          'Unable to connect. Please check your internet connection and try again.';
     } finally {
       isLoading.value = false;
     }
+  }
+
+  Future<void> refreshPets() async {
+    await fetchPets();
   }
 
   Future<bool> addPet({
@@ -101,9 +97,5 @@ class PetController extends GetxController {
     } finally {
       isCreating.value = false;
     }
-  }
-
-  void refreshPets() {
-    fetchPets();
   }
 }

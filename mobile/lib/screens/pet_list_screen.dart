@@ -4,8 +4,26 @@ import '../controllers/pet_controller.dart';
 import '../controllers/auth_controller.dart';
 import '../models/pet.dart';
 
-class PetListScreen extends StatelessWidget {
+class PetListScreen extends StatefulWidget {
   const PetListScreen({super.key});
+
+  @override
+  State<PetListScreen> createState() => _PetListScreenState();
+}
+
+class _PetListScreenState extends State<PetListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Fetch pets when screen is loaded
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final petController = Get.find<PetController>();
+      if (petController.pets.isEmpty &&
+          petController.errorMessage.value.isEmpty) {
+        petController.fetchPets();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +32,28 @@ class PetListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Pets'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
+        title: Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Image(
+                  image: AssetImage('assets/icon/app_icon.png'),
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Text('My Pets'),
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -43,14 +80,23 @@ class PetListScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
-            color: Colors.blue.withOpacity(0.1),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xFF2196F3).withOpacity(0.1),
+                  const Color(0xFF1976D2).withOpacity(0.05),
+                ],
+              ),
+            ),
             child: Obx(
               () => Text(
-                'Welcome, ${authController.userEmail.value}',
+                'Welcome back, ${authController.userEmail.value.split('@')[0]}!',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  color: Color(0xFF1976D2),
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -62,47 +108,118 @@ class PetListScreen extends StatelessWidget {
 
               if (petController.errorMessage.value.isNotEmpty) {
                 return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.error_outline,
-                        size: 64,
-                        color: Colors.red,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        petController.errorMessage.value,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: () => petController.refreshPets(),
-                        child: const Text('Retry'),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.red.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Icon(
+                            petController.errorMessage.value
+                                    .toLowerCase()
+                                    .contains('connect')
+                                ? Icons.wifi_off
+                                : Icons.error_outline,
+                            size: 64,
+                            color: Colors.red[400],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          petController.errorMessage.value
+                                  .toLowerCase()
+                                  .contains('connect')
+                              ? 'Connection Issue'
+                              : 'Something went wrong',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          petController.errorMessage.value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton.icon(
+                          onPressed: () => petController.refreshPets(),
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('Try Again'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }
 
               if (petController.pets.isEmpty) {
-                return const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.pets, size: 64, color: Colors.grey),
-                      SizedBox(height: 16),
-                      Text(
-                        'No pets found',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Add your first pet using the + button',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF2196F3).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: const Image(
+                            image: AssetImage('assets/icon/app_icon.png'),
+                            width: 64,
+                            height: 64,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          'No Pets Yet',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Start by adding your first furry friend!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton.icon(
+                          onPressed: () => Get.toNamed('/add-pet'),
+                          icon: const Icon(Icons.add),
+                          label: const Text('Add Your First Pet'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               }
@@ -154,13 +271,11 @@ class PetListScreen extends StatelessWidget {
 
 class _PetCard extends StatelessWidget {
   final Pet pet;
-  final Size? screenSize;
 
-  const _PetCard({required this.pet, this.screenSize});
+  const _PetCard({required this.pet});
 
   @override
   Widget build(BuildContext context) {
-    final size = screenSize ?? MediaQuery.of(context).size;
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
