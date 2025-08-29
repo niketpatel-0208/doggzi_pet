@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../services/api_service.dart';
+import 'pet_controller.dart';
 
 class AuthController extends GetxController {
   final RxBool isLoading = false.obs;
@@ -49,6 +50,10 @@ class AuthController extends GetxController {
       userEmail.value = email;
       isLoggedIn.value = true;
 
+      // Fetch pets after successful registration
+      final petController = Get.find<PetController>();
+      petController.fetchPets();
+
       Get.snackbar(
         'Success',
         'Registration successful!',
@@ -89,6 +94,10 @@ class AuthController extends GetxController {
       userEmail.value = email;
       isLoggedIn.value = true;
 
+      // Fetch pets after successful login
+      final petController = Get.find<PetController>();
+      petController.fetchPets();
+
       Get.snackbar(
         'Success',
         'Login successful!',
@@ -118,6 +127,11 @@ class AuthController extends GetxController {
       await ApiService.logout();
       isLoggedIn.value = false;
       userEmail.value = '';
+
+      // Clear pets data on logout
+      final petController = Get.find<PetController>();
+      petController.clearPets();
+
       Get.snackbar(
         'Success',
         'Logged out successfully',

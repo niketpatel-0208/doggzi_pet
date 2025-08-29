@@ -106,6 +106,11 @@ A complete full-stack pet management application built with **Flutter (GetX)** f
 - **Local Development**: Use `http://10.0.2.2:8000` (Android) or `http://localhost:8000` (iOS)
 - **Production**: Use `https://pawzy-backend.onrender.com`
 
+### 📱 App Usage Notes
+- **First Load**: When using the production backend, the first login/register may take **30-60 seconds** due to Render's cold start
+- **Normal Operation**: After the initial delay, all operations are fast and responsive
+- **Connection Issues**: If a request times out, simply retry - the server will be awake and respond immediately
+
 ---
 
 ## API Endpoints
@@ -201,6 +206,12 @@ Content-Type: application/json
 - **Health monitoring**: Automatic restart on failures  
 - **SSL/HTTPS**: Secure API communication
 - **CORS**: Configured for mobile app access
+
+### ⚠️ Performance Note
+The backend is hosted on **Render's free tier**, which has the following limitations:
+- **Cold Start Delay**: After 15 minutes of inactivity, the server goes to sleep and takes **30-60 seconds** to wake up on the first request
+- **Subsequent Requests**: Once awake, all operations are fast and responsive
+- **Expected Behavior**: First API call after inactivity may timeout, but retry will work immediately
 
 ---
 

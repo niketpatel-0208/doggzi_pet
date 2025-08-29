@@ -35,6 +35,11 @@ class PetController extends GetxController {
     await fetchPets();
   }
 
+  void clearPets() {
+    pets.clear();
+    errorMessage.value = '';
+  }
+
   Future<bool> addPet({
     required String name,
     required String type,
