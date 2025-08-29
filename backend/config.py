@@ -7,25 +7,14 @@ class Settings(BaseSettings):
     DATABASE_NAME: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     
-    # Map to lowercase attributes for backward compatibility
-    @property
-    def secret_key(self):
-        return self.SECRET_KEY
-        
-    @property 
-    def mongodb_url(self):
-        return self.MONGODB_URL
-        
-    @property
-    def database_name(self):
-        return self.DATABASE_NAME
-        
-    @property
-    def access_token_expire_minutes(self):
-        return self.ACCESS_TOKEN_EXPIRE_MINUTES
-    
     class Config:
         env_file = ".env"
         case_sensitive = True
 
 settings = Settings()
+
+# Create lowercase aliases for backward compatibility
+settings.secret_key = settings.SECRET_KEY
+settings.mongodb_url = settings.MONGODB_URL  
+settings.database_name = settings.DATABASE_NAME
+settings.access_token_expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
