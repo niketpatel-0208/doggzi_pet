@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/pet.dart';
+import '../config/api_config.dart';
 
 class ApiException implements Exception {
   final String message;
@@ -15,16 +15,8 @@ class ApiException implements Exception {
 }
 
 class ApiService {
-  // Use different URLs for different platforms
-  static String get baseUrl {
-    if (Platform.isIOS) {
-      return 'http://localhost:8000'; // iOS Simulator uses localhost
-    } else if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8000'; // Android Emulator uses 10.0.2.2
-    } else {
-      return 'http://localhost:8000'; // Web and desktop
-    }
-  }
+  // Use the centralized API configuration
+  static String get baseUrl => ApiConfig.baseUrl;
 
   static Future<Map<String, String>> _getHeaders({
     bool requiresAuth = false,

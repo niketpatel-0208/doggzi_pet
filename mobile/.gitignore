@@ -71,17 +71,18 @@ app.*.map.json
 # Coverage
 coverage/
 
-# API keys and secrets
-/lib/config/
+# API keys and secrets (but allow api_config.dart)
+/lib/config/secrets/
 *.env
 api_keys.dart
 secrets.dart
+firebase_config.dart
+database_config.dart
 
 # Generated files
 *.g.dart
 *.freezed.dart
 *.mocks.dart
-*.config.dart
 
 # Firebase
 /android/app/google-services.json
