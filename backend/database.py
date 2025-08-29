@@ -13,20 +13,18 @@ database = Database()
 async def connect_to_mongo():
     """Create database connection"""
     try:
-        logger.info(f"Attempting to connect to MongoDB: {settings.MONGODB_URL[:20]}...")
-        # Add SSL configuration for cloud deployment
+        logger.info(f"Attempting to connect to MongoDB Atlas...")
+        # Create client with standard settings for Atlas
         database.client = motor.motor_asyncio.AsyncIOMotorClient(
             settings.MONGODB_URL,
-            serverSelectionTimeoutMS=30000,
-            connectTimeoutMS=30000,
-            tlsAllowInvalidCertificates=True
+            serverSelectionTimeoutMS=5000,
         )
         database.database = database.client[settings.DATABASE_NAME]
         # Test the connection
         await database.client.admin.command('ping')
-        logger.info(f"Connected to MongoDB successfully. Database: {settings.DATABASE_NAME}")
+        logger.info(f"✅ Connected to MongoDB successfully. Database: {settings.DATABASE_NAME}")
     except Exception as e:
-        logger.error(f"Could not connect to MongoDB: {str(e)}", exc_info=True)
+        logger.error(f"❌ MongoDB connection failed: {str(e)}", exc_info=True)
         database.client = None
         database.database = None
         raise
