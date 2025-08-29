@@ -61,7 +61,7 @@ async def health_check():
 @app.post("/auth/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate):
     try:
-        db = get_database()
+        db = await get_database()
         
         # Check if user already exists
         existing_user = await db.users.find_one({"email": user.email})
@@ -108,7 +108,7 @@ async def register_user(user: UserCreate):
 @app.post("/auth/login", response_model=Token)
 async def login_user(user: UserLogin):
     try:
-        db = get_database()
+        db = await get_database()
         
         # Find user by email
         db_user = await db.users.find_one({"email": user.email})
@@ -141,7 +141,7 @@ async def login_user(user: UserLogin):
 @app.get("/pets", response_model=List[Pet])
 async def get_pets(current_user: dict = Depends(get_current_user)):
     try:
-        db = get_database()
+        db = await get_database()
         
         pets_cursor = db.pets.find({"owner_email": current_user["email"]})
         pets = []
@@ -171,7 +171,7 @@ async def get_pets(current_user: dict = Depends(get_current_user)):
 @app.post("/pets", response_model=Pet, status_code=status.HTTP_201_CREATED)
 async def create_pet(pet: PetCreate, current_user: dict = Depends(get_current_user)):
     try:
-        db = get_database()
+        db = await get_database()
         
         # Create pet document
         pet_doc = {
