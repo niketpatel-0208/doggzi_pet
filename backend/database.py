@@ -13,8 +13,8 @@ database = Database()
 async def connect_to_mongo():
     """Create database connection"""
     try:
-        database.client = motor.motor_asyncio.AsyncIOMotorClient(settings.mongodb_url)
-        database.database = database.client[settings.database_name]
+        database.client = motor.motor_asyncio.AsyncIOMotorClient(settings.MONGODB_URL)
+        database.database = database.client[settings.DATABASE_NAME]
         # Test the connection
         await database.client.admin.command('ismaster')
         logger.info("Connected to MongoDB successfully")

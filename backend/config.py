@@ -12,9 +12,3 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 settings = Settings()
-
-# Create lowercase aliases for backward compatibility
-settings.secret_key = settings.SECRET_KEY
-settings.mongodb_url = settings.MONGODB_URL  
-settings.database_name = settings.DATABASE_NAME
-settings.access_token_expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
