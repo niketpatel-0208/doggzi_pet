@@ -57,6 +57,17 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 async def health_check():
     return {"status": "healthy", "service": "pawzy-api"}
 
+# Database connection test
+@app.get("/test-db")
+async def test_db_connection():
+    try:
+        from database import connect_to_mongo, database
+        await connect_to_mongo()
+        result = await database.client.admin.command('ping')
+        return {"status": "success", "connection": "working", "result": result}
+    except Exception as e:
+        return {"status": "failed", "error": str(e), "type": type(e).__name__}
+
 # Auth endpoints
 @app.post("/auth/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate):
