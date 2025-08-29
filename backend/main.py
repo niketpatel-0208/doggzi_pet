@@ -57,6 +57,19 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 async def health_check():
     return {"status": "healthy", "service": "pawzy-api"}
 
+# Debug endpoint to check environment variables
+@app.get("/debug/env")
+async def debug_env():
+    import os
+    return {
+        "SECRET_KEY_exists": bool(os.getenv("SECRET_KEY")),
+        "MONGODB_URL_exists": bool(os.getenv("MONGODB_URL")),
+        "DATABASE_NAME_exists": bool(os.getenv("DATABASE_NAME")),
+        "ACCESS_TOKEN_EXPIRE_MINUTES_exists": bool(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")),
+        "SECRET_KEY_length": len(os.getenv("SECRET_KEY", "")),
+        "DATABASE_NAME_value": os.getenv("DATABASE_NAME", "not_set")
+    }
+
 # Auth endpoints
 @app.post("/auth/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 async def register_user(user: UserCreate):
