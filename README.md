@@ -1,10 +1,5 @@
 # Pawzy Pet Management - Full-Stack Application
 
-**Internship Assignment Submission**  
-**Submitted by**: Niket Patel  
-**Submission Date**: August 29, 2025  
-**Demo**: https://github.com/niketpatel-0208/doggzi_pet
-
 ## Overview
 
 A complete full-stack pet management application built with **Flutter (GetX)** frontend and **FastAPI** backend, featuring user authentication, pet management, and cloud deployment.
@@ -357,5 +352,3 @@ flutter run
 cd mobile
 flutter run
 ```
-
-**The application is fully functional and ready for evaluation.**

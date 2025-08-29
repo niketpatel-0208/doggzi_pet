@@ -1,108 +1,20 @@
-# Backend - Doggzi Pet API
+# Backend API
 
-FastAPI backend service for the Doggzi Pet Management application.
+FastAPI backend for Pawzy Pet Management.
 
-## 🚀 Quick Start
+## Quick Start
 
-1. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-2. **Start MongoDB:**
-   ```bash
-   brew services start mongodb/brew/mongodb-community
-   ```
+# Configure .env file (see main README for details)
 
-3. **Run the server:**
-   ```bash
-   python main.py
-   ```
-
-Server runs on: `http://localhost:8000`
-
-## 📋 API Documentation
-
-### Authentication
-
-**POST /auth/register**
-```json
-{
-  "email": "user@example.com",
-  "password": "password123"
-}
+# Run server  
+python main.py
 ```
 
-**POST /auth/login**
-```json
-{
-  "email": "user@example.com", 
-  "password": "password123"
-}
-```
+Server: http://localhost:8000  
+Docs: http://localhost:8000/docs
 
-### Pet Management
-
-**GET /pets** (Requires Authentication)
-- Headers: `Authorization: Bearer <token>`
-
-**POST /pets** (Requires Authentication)
-```json
-{
-  "name": "Buddy",
-  "type": "Dog", 
-  "age": 3,
-  "notes": "Golden Retriever"
-}
-```
-
-## 🔧 Configuration
-
-- **Database**: MongoDB (localhost:27017)
-- **JWT Secret**: Production-ready secret key
-- **Token Expiry**: 30 minutes
-- **CORS**: Enabled for all origins (configure for production)
-
-## 📦 Dependencies
-
-- fastapi==0.104.1
-- uvicorn==0.24.0
-- pymongo==4.6.0
-- python-jose[cryptography]==3.3.0
-- passlib[bcrypt]==1.7.4
-- motor==3.3.2
-- pydantic==2.5.0
-- email-validator
-
-## 🛡️ Security Features
-
-- Password hashing with bcrypt
-- JWT token authentication
-- Email validation
-- Input sanitization
-- Comprehensive error handling
-
-## 📊 Database Schema
-
-### Users Collection
-```json
-{
-  "_id": "ObjectId",
-  "email": "string",
-  "password": "hashed_string",
-  "created_at": "datetime"
-}
-```
-
-### Pets Collection
-```json
-{
-  "_id": "ObjectId",
-  "name": "string",
-  "type": "string", 
-  "age": "integer",
-  "notes": "string",
-  "owner_id": "string",
-  "created_at": "datetime"
-}
-```
+**See main README for complete setup instructions.**
