@@ -1,19 +1,13 @@
 class ApiConfig {
-  // Update this URL after deploying to Render
-  static const String productionApiUrl = "https://pawzy-backend.onrender.com";
-
-  // Development URLs
-  static const String localApiUrl = "http://localhost:8000";
-  static const String androidEmulatorUrl = "http://10.0.2.2:8000";
-
-  // Choose the appropriate URL based on build mode
-  static String get baseUrl {
-    // In production/release mode, use the production URL
-    if (const bool.fromEnvironment('dart.vm.product')) {
-      return productionApiUrl;
-    }
-
-    // For development, use local URL
-    return localApiUrl;
-  }
+  // Production URL (Render deployment)
+  static const String baseUrl = 'https://pawzy-backend.onrender.com';
+  
+  // Development URL (local testing)
+  // static const String baseUrl = 'http://10.0.2.2:8000'; // Android emulator
+  // static const String baseUrl = 'http://localhost:8000'; // iOS simulator
+  
+  // API endpoints
+  static const String registerEndpoint = '/auth/register';
+  static const String loginEndpoint = '/auth/login';
+  static const String petsEndpoint = '/pets';
 }
